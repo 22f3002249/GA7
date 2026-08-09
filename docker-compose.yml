@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  release-gate-app:
+    build:
+      context: ./app
+    container_name: release-gate-app
+    restart: always
+    ports:
+      - "8000:8000"
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared_tunnel
+    restart: always
+    command: tunnel --url http://release-gate-app:8000
+    depends_on:
+      - release-gate-app
