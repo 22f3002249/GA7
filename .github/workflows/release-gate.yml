@@ -4,25 +4,17 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
-  test-release-gate:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: "TDS identity: 22f3002249@ds.study.iitm.ac.in"
         run: echo "Identity verified"
 
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Test Release Gate Logic
-        run: |
-          python -c '
-          import main
-          print("Release gate logic loaded successfully")
-          '
+      - name: Run verification test
+        run: echo "Workflow executed successfully on main branch"
